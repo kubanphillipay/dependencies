@@ -1,0 +1,3 @@
+[submodule "boost_mega_pack"]
+	path = boost_mega_pack
+	url = https://github.com/kubanphillipay/boost_mega_pack.git
