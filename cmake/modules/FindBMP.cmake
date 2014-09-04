@@ -81,7 +81,8 @@
 #=============================================================================
 # (To distribute this file outside of CMake, substitute the full
 #  License text for the above reference.)
-
+set( BMP_RELEASE-NOTFOUND FALSE )
+set( BMP_DEBUG-NOTFOUND FALSE )
 
 find_path(BMP_INCLUDE_DIR boost_mega_pack.h
     PATH_SUFFIXES boost
@@ -99,36 +100,63 @@ include(${CMAKE_CURRENT_LIST_DIR}/SelectLibraryConfigurations.cmake)
 foreach( comp ${BMP_FIND_COMPONENTS} )
     #message ( STATUS "Looking for component ${comp_temp}" )
     #set( comp ${comp_temp} )
-    string( TOUPPER ${comp} comp )
-    #message ( STATUS "Looking for component ${comp}" )
-    string( CONCAT comp "BOOST_" ${comp} "_LIB" )
+    string( TOLOWER ${comp} comp )
+    string( CONCAT comp "bmp_" ${comp} "_lib" )
 
+    string( TOUPPER ${comp} comp_upper )
+
+
+
+    #message ( STATUS "Looking for component: ${comp}   upper: ${comp_upper}" )
     #message ( STATUS "Looking for component ${comp}" )
 
-    find_library(BMP_${comp}_RELEASE
+    find_library(${comp_upper}_LIBRARY_RELEASE
         NAMES ${comp}
         PATH_SUFFIXES )
-        
-    find_library(BMP_${comp}_DEBUG
+
+    find_library(${comp_upper}_LIBRARY_DEBUG
         NAMES ${comp}d
         PATH_SUFFIXES )
-        
-    select_library_configurations(BMP_${comp})    
-
-    #message ( STATUS "BMP_LIB_TEMP: ${BMP_LIB_TEMP}" )
 
 
-    if(  BMP_${comp} STREQUAL "BMP_${comp}-NOTFOUND" )
-        message( FATAL_ERROR "Could not find bmp include dir" )
+    select_library_configurations(${comp_upper})
+
+    #message ( STATUS "Comp upper lib: ${${comp_upper}_LIBRARY}" )
+
+
+    if( NOT ${comp_upper}_LIBRARY_RELEASE AND BMP_FIND_REQUIRED )
+        message( FATAL_ERROR "BMP Release not found and Required was set" )
     endif()
 
-    set( BOOST_LIBS ${BOOST_LIBS} ${BMP_${comp}} )
+    if( NOT ${comp_upper}_LIBRARY_DEBUG AND BMP_FIND_REQUIRED )
+        message( FATAL_ERROR "BMP Debug not found and Required was set" )
+    endif()
+
+    #if(  BMP_${comp}_RELEASE STREQUAL "BMP_${comp}_RELEASE-NOTFOUND" )
+    #    set( BMP_RELEASE-NOTFOUND TRUE )
+    #endif()
+
+    #if(  BMP_${comp}_DEBUG STREQUAL "BMP_${comp}_DEBUG-NOTFOUND" )
+    #    set( BMP_DEBUG-NOTFOUND TRUE )
+    #endif()
+
+    #if( BMP_FIND_REQUIRED )
+    #    message( STATUS "BMP REQUIRED" )
+    #    if(  NOT BMP_RELEASE-NOTFOUND )
+    #        message( FATAL_ERROR "BMP Release not found and Required was set" )
+    #    elseif( NOT BMP_DEBUG-NOTFOUND )
+    #        message( FATAL_ERROR "BMP Debug not found and Required was set" )
+    #    endif()
+    #endif()
+
+
+    set( BMP_LIBRARY ${BMP_LIBRARY} ${${comp_upper}_LIBRARY} )
 
 
 endforeach(comp)
 
-message( STATUS "BOOST_INCLUDES ${BMP_INCLUDE_DIR}")
-message( STATUS "BOOST_LIBS: ${BOOST_LIBS}" )
+#message( STATUS "BOOST_INCLUDES ${BMP_INCLUDE_DIR}")
+#message( STATUS "BOOST_LIBS: ${BOOST_LIBS}" )
 
 
 

@@ -39,7 +39,7 @@ select_library_configurations(GLEW)
 if( GLEW_SHARED )
     set( GLEW_DEFINITIONS "" )
 else()
-    set( GLEW_DEFINITIONS "GLEW_STATIC" )
+    set( GLEW_DEFINITIONS "GLEW_STATIC"  )
 endif()
 
 
@@ -48,3 +48,4 @@ find_package_handle_standard_args(GLEW
                                   REQUIRED_VARS GLEW_INCLUDE_DIR GLEW_LIBRARY)
 
 #mark_as_advanced(GLEW_INCLUDE_DIR GLEW_LIBRARY)
+set( GLEW_DEFINITIONS ${GLEW_DEFINITIONS} PARENT_SCOPE )
