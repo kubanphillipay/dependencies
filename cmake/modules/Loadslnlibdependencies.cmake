@@ -27,6 +27,14 @@ function( load_slnlib_dependencies )
                 ${BMP_LIBRARY}
                 PARENT_SCOPE
     )
+    
+    set( EXTERNAL_DEPENDENCY_INCLUDE_DIR
+                ${GLFW_INCLUDE_DIR}
+                ${GLEW_INCLUDE_DIR}
+                ${SDL_INCLUDE_DIR}
+                ${BMP_INCLUDE_DIR}
+                PARENT_SCOPE
+    )
 
     set( EXTERNAL_DEPENDENCY_DEFINITIONS
                 ${GLFW_DEFINITIONS}
