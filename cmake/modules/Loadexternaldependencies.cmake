@@ -1,5 +1,5 @@
 function( load_external_dependencies )
-    message( STATUS "Load slnlib dependencies" )
+    message( STATUS "Load external dependencies" )
 
     #set( SDL_BUILD_SHARED TRUE )
 

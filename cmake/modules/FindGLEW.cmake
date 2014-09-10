@@ -48,7 +48,6 @@ find_package_handle_standard_args(GLEW
                                   REQUIRED_VARS GLEW_INCLUDE_DIR GLEW_LIBRARY)
 
 
-message( STATUS "Look for GLEW_INCLUDE_DIR: ${GLEW_INCLUDE_DIR}" )
 
 #mark_as_advanced(GLEW_INCLUDE_DIR GLEW_LIBRARY)
 set( GLEW_DEFINITIONS ${GLEW_DEFINITIONS} PARENT_SCOPE )
