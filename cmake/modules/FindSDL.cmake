@@ -256,7 +256,8 @@ if( SDL_LIBRARY_TEMP )
 
   #message( STATUS "SET SDL_LIBRARY_TEMP ${SDL_LIBRARY}" )
 
-  set(SDL_LIBRARY ${SDL_LIBRARY_TEMP} CACHE STRING "Where the SDL Library can be found")
+  #set(SDL_LIBRARY ${SDL_LIBRARY_TEMP} CACHE STRING "Where the SDL Library can be found")
+  set(SDL_LIBRARY ${SDL_LIBRARY_TEMP} )
 
   #message( STATUS "CACHE SDL_LIBRARY_TEMP ${SDL_LIBRARY}" )
 

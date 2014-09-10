@@ -25,7 +25,7 @@
 # (To distribute this file outside of CMake, substitute the full
 #  License text for the above reference.)
 
-find_path(GLEW_INCLUDE_DIR GL/glew.h)
+find_path(GLEW_INCLUDE_DIR glew.h PATH_SUFFIXES GL )
 find_library(GLEW_LIBRARY_RELEASE NAMES GLEW glew32 glew glew32s PATH_SUFFIXES lib64)
 find_library(GLEW_LIBRARY_DEBUG NAMES GLEWd glew32d glewd glew32sd PATH_SUFFIXES lib64)
 
@@ -46,6 +46,9 @@ endif()
 include(${CMAKE_CURRENT_LIST_DIR}/FindPackageHandleStandardArgs.cmake)
 find_package_handle_standard_args(GLEW
                                   REQUIRED_VARS GLEW_INCLUDE_DIR GLEW_LIBRARY)
+
+
+message( STATUS "Look for GLEW_INCLUDE_DIR: ${GLEW_INCLUDE_DIR}" )
 
 #mark_as_advanced(GLEW_INCLUDE_DIR GLEW_LIBRARY)
 set( GLEW_DEFINITIONS ${GLEW_DEFINITIONS} PARENT_SCOPE )
