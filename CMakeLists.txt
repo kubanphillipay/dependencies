@@ -35,7 +35,7 @@ if( BUILD_SDL )
 
 	message( STATUS "Looking for SDL directory" )
 	
-	find_path( SDL_PATH sdl.h
+   find_path( SDL_PATH SDL.h 
 		HINTS ${CMAKE_SOURCE_DIR}
 		PATHS SDL2-2.0.3
 		PATH_SUFFIXES include
@@ -170,14 +170,14 @@ if( BUILD_GLEW )
 	find_path( ${lib_name}_PATH_TEMP glew.h
 		HINTS ${CMAKE_SOURCE_DIR}
 		PATHS glew-1.11.0
-		PATH_SUFFIXES include/gl
+      PATH_SUFFIXES include/GL
 	)	
 	
 	if(${${lib_name}_PATH_TEMP} STREQUAL "${lib_name}_PATH_TEMP-NOTFOUND" )
 		message( FATAL_ERROR "${lib_name} PATH NOT FOUND AND BUILD SET TO ON" )		
 	endif()
 
-	string( REGEX REPLACE "include/gl" "" ${lib_name}_PATH_TEMP ${${lib_name}_PATH_TEMP} )
+   string( REGEX REPLACE "include/GL" "" ${lib_name}_PATH_TEMP ${${lib_name}_PATH_TEMP} )
 	mark_as_advanced(${lib_name}_PATH_TEMP)
 
 	set(${lib_name}_PATH ${${lib_name}_PATH_TEMP} CACHE PATH "Path to ${lib_name}" )
