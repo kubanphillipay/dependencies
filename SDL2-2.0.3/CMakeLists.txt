@@ -1290,7 +1290,8 @@ if(NOT WINDOWS OR CYGWIN)
   if(SDL_SHARED)
     install(CODE "
       execute_process(COMMAND ${CMAKE_COMMAND} -E create_symlink
-      \"libSDL2-2.0.so\" \"libSDL2.so\")")
+              \"libSDL2-2.0.so\" \"libSDL2.so\" 
+              WORKING_DIRECTORY ${SDL2_BINARY_DIR})")
     install(FILES ${SDL2_BINARY_DIR}/libSDL2.so DESTINATION "lib${LIB_SUFFIX}")
   endif()
   if(FREEBSD)

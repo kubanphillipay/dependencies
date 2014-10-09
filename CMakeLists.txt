@@ -177,7 +177,9 @@ if( BUILD_GLEW )
 		message( FATAL_ERROR "${lib_name} PATH NOT FOUND AND BUILD SET TO ON" )		
 	endif()
 
+   message( STATUS "#### ${lib_name}_PATH_TEMP: ${${lib_name}_PATH_TEMP}" )
    string( REGEX REPLACE "include/GL" "" ${lib_name}_PATH_TEMP ${${lib_name}_PATH_TEMP} )
+   message( STATUS "#### ${lib_name}_PATH_TEMP: ${${lib_name}_PATH_TEMP}" )
 	mark_as_advanced(${lib_name}_PATH_TEMP)
 
 	set(${lib_name}_PATH ${${lib_name}_PATH_TEMP} CACHE PATH "Path to ${lib_name}" )
