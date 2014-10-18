@@ -88,7 +88,7 @@ find_path(SDL_INCLUDE_DIR SDL.h
     ENV SDLDIR
   PATH_SUFFIXES SDL SDL12 SDL11 SDL2
                 # path suffixes to search inside ENV{SDLDIR}
-                include/SDL include/SDL12 include/SDL11 include/SDL2 include
+                include/sdl include/SDL12 include/SDL11 include/SDL2 include
 )
 
 

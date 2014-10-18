@@ -7,17 +7,16 @@ else()
 endif()
 
 
-
 find_path(GLFW_INCLUDE_DIR glfw3.h
   PATH_SUFFIXES GLFW
 )
 
 find_library(GLFW_LIBRARY_RELEASE
-  NAMES GLFW3
+  NAMES glfw3
 )
 
 find_library(GLFW_LIBRARY_DEBUG
-  NAMES GLFW3d
+  NAMES glfw3d
 )
 
 include(${CMAKE_CURRENT_LIST_DIR}/FindPackageHandleStandardArgs.cmake)

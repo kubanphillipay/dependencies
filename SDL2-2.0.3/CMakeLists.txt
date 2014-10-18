@@ -1243,10 +1243,17 @@ set(_INSTALL_LIBS "SDL2main")
 if(SDL_SHARED)
   add_library(SDL2 SHARED ${SOURCE_FILES})
   if(UNIX)
-    set_target_properties(SDL2 PROPERTIES
-      VERSION ${LT_VERSION}
-      SOVERSION ${LT_REVISION}
-      OUTPUT_NAME "SDL2-${LT_RELEASE}")
+    if( CMAKE_BUILD_TYPE EQUAL "DEBUG" )
+      set_target_properties(SDL2 PROPERTIES
+        VERSION ${LT_VERSION}
+        SOVERSION ${LT_REVISION}
+        OUTPUT_NAME "SDL2-${LT_RELEASE}d")
+    else()
+      set_target_properties(SDL2 PROPERTIES
+        VERSION ${LT_VERSION}
+        SOVERSION ${LT_REVISION}
+        OUTPUT_NAME "SDL2-${LT_RELEASE}")
+      endif()
   else(UNIX)
     set_target_properties(SDL2 PROPERTIES
       VERSION ${SDL_VERSION}
@@ -1288,11 +1295,23 @@ install(FILES ${INCLUDE_FILES} DESTINATION include/SDL2)
 
 if(NOT WINDOWS OR CYGWIN)
   if(SDL_SHARED)
-    install(CODE "
-      execute_process(COMMAND ${CMAKE_COMMAND} -E create_symlink
-              \"libSDL2-2.0.so\" \"libSDL2.so\" 
-              WORKING_DIRECTORY ${SDL2_BINARY_DIR})")
-    install(FILES ${SDL2_BINARY_DIR}/libSDL2.so DESTINATION "lib${LIB_SUFFIX}")
+        install(CODE "
+          execute_process(COMMAND ${CMAKE_COMMAND} -E create_symlink
+                  \"libSDL2-2.0d.so\" \"libSDL2d.so\" 
+                  WORKING_DIRECTORY ${SDL2_BINARY_DIR})" CONFIGURATIONS Debug)
+        install(FILES ${SDL2_BINARY_DIR}/libSDL2d.so DESTINATION "lib${LIB_SUFFIX}" 
+                CONFIGURATIONS Debug )
+        install(FILES ${SDL2_BINARY_DIR}/libSDL2d.so DESTINATION bin
+                CONFIGURATIONS Debug)
+        install(CODE "
+          execute_process(COMMAND ${CMAKE_COMMAND} -E create_symlink
+                  \"libSDL2-2.0.so\" \"libSDL2.so\" 
+                  WORKING_DIRECTORY ${SDL2_BINARY_DIR})"
+                  CONFIGURATIONS Release )
+        install(FILES ${SDL2_BINARY_DIR}/libSDL2.so DESTINATION "lib${LIB_SUFFIX}"
+                CONFIGURATIONS Release )
+        install(FILES ${SDL2_BINARY_DIR}/libSDL2.so DESTINATION bin
+                CONFIGURATIONS Release )
   endif()
   if(FREEBSD)
     # FreeBSD uses ${PREFIX}/libdata/pkgconfig

@@ -2,8 +2,10 @@ function( load_external_dependencies )
     message( STATUS "Load external dependencies" )
 
     #set( SDL_BUILD_SHARED TRUE )
+    set( LOAD_DEPENDENCY_DEBUG true )
 
     find_package( OpenGL REQUIRED )
+    message( STATUS "Loading GLFW" )
     find_package( GLFW REQUIRED )
     find_package( GLEW REQUIRED )
 
