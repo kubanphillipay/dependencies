@@ -45,5 +45,6 @@ function( load_external_dependencies )
 
     set( EXTERNAL_DEPENDENCY_DEFINITIONS ${EXTERNAL_DEPENDENCY_DEFINITIONS} PARENT_SCOPE )
 
-
+    set( SDL_LIBRARY ${SDL_LIBRARY} PARENT_SCOPE ) 
+    set( MY_VAR "THIS IS A TEST" PARENT_SCOPE )
 endfunction()

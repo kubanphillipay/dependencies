@@ -1,4 +1,9 @@
 function( SetupVimIde )
+
+   set(multiValueArgs DIRECTORIES )
+   include(CMakeParseArguments)
+   cmake_parse_arguments(SetupVimIde "${options}" "${oneValueArgs}" "${multiValueArgs}" ${ARGN} )
+
    message( STATUS "Setting up VIM IDE " )
    set( TEST_VAR "_MY_TEST_VAR_" )
    
@@ -15,9 +20,9 @@ function( SetupVimIde )
    #else()
    #   message( STATUS "Not linux" )
    #endif()  
-
    
-   file( WRITE ${CMAKE_BINARY_DIR}/myvimfile 
+   
+   file( WRITE ${CMAKE_BINARY_DIR}/.lvimrc 
       "\"let NERDTreeShowHidden=1\n"
       "\"let NERDTreeIgnore=['ignore_files$[[dir]]' , 'rth$[[dir]]' ]\n"
       "\"map <leader>m :\"this is a test\"\n"
@@ -27,6 +32,10 @@ function( SetupVimIde )
       ":let g:easytags_async = 1\n"
       ":let g:easytags_file = '${CMAKE_BINARY_DIR}/.myvimtags'\n"
       ":let g:easytags_include_members = 1\n"
+      "\"My directories: ${SetupVimIde_DIRECTORIES}\n"
+   ) 
+   file( WRITE ${CMAKE_BINARY_DIR}/mytags
+      "\"My directories: ${SetupVimIde_DIRECTORIES}\n"
    ) 
    #file( WRITE ${CMAKE_BINARY_DIR}/myvimfile 
    #       "Cmake Binary Dir: ${CMAKE_BINARY_DIR}\n"
@@ -37,5 +46,15 @@ function( SetupVimIde )
    #       "This is a ${TEST_VAR}" )
 
    
+
+   message( STATUS "VIMIDE, Current Source dir: ${CMAKE_MODULE_PATH} " )
+
+
+   configure_file (
+     "${CMAKE_MODULE_PATH}/.ycm_extra_conf.py"
+     "${PROJECT_BINARY_DIR}/.ycm_extra_conf.py"
+   )
+
+
 
 endfunction()
