@@ -21,12 +21,11 @@ function( SetupVimIde )
    #   message( STATUS "Not linux" )
    #endif()  
    
-   
    file( WRITE ${CMAKE_BINARY_DIR}/.lvimrc 
       "\"let NERDTreeShowHidden=1\n"
       "\"let NERDTreeIgnore=['ignore_files$[[dir]]' , 'rth$[[dir]]' ]\n"
       "\"map <leader>m :\"this is a test\"\n"
-      "map <leader>nt :NERDTree ${CMAKE_SOURCE_DIR}<cr>\n"
+      "map <leader>nt :NERDTree ${CMAKE_SOURCE_DIR}/..<cr>\n"
       "let g:ycm_global_ycm_extra_conf = '${CMAKE_BINARY_DIR}/.ycm_extra_conf.py'\n"
       "\"let g:ycm_extra_conf_globlist = ['${CMAKE_BINARY_DIR}/*']\n"
       ":let g:easytags_async = 1\n"
