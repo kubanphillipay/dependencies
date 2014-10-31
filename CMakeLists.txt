@@ -174,6 +174,7 @@ if( BUILD_GLEW )
 	find_path( ${lib_name}_PATH_TEMP glew.h
 		HINTS ${CMAKE_SOURCE_DIR}
 		PATHS glew-1.11.0
+      NO_DEFAULT_PATH
       PATH_SUFFIXES include/GL
 	)	
 	
