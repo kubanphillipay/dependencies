@@ -12,7 +12,7 @@ function( load_game_engine arg1 )
 
         message( STATUS "Build lib is set" )
 
-        set( GameEngine_PATH "${CMAKE_SOURCE_DIR}/../${LIB_NAME}" CACHE PATH "Path to lib" )
+        set( GameEngine_PATH_TMP "${CMAKE_SOURCE_DIR}/../${LIB_NAME}"  )
 
         #Variable used to show the project was built with the lib
         #set( LIB_TYPE "Project built with exe" CACHE STRING "Is the build in the project?" FORCE )
@@ -24,8 +24,12 @@ function( load_game_engine arg1 )
             message(FATAL_ERROR "Cannot have a sub directory with the same name as the external lib: ${LIB_NAME}" )
         endif()
 
-        if( NOT IS_DIRECTORY ${GameEngine_PATH} )
+        if( NOT IS_DIRECTORY ${GameEngine_PATH_TMP} )
             message( FATAL_ERROR "Could not find path to ${LIB_NAME}: ${GameEngine_PATH}" )
+        else()
+           get_filename_component( GameEngine_PATH ${GameEngine_PATH_TMP} ABSOLUTE  )
+           set( GameEngine_PATH ${GameEngine_PATH} CACHE PATH "Path to Engine" )
+           message( STATUS "Absolute Path: ${GameEngine_PATH}" ) 
         endif()
 
         add_subdirectory( ${GameEngine_PATH} ${CMAKE_BINARY_DIR}/${LIB_NAME} )
@@ -37,6 +41,7 @@ function( load_game_engine arg1 )
         set( ${LIB_NAME}_LIBRARY ${${LIB_NAME}_LIBRARY} PARENT_SCOPE )
         set( EXTERNAL_DEPENDENCY_LIBRARY ${EXTERNAL_DEPENDENCY_LIBRARY} PARENT_SCOPE )
         set( EXTERNAL_DEPENDENCY_DEFINITIONS ${EXTERNAL_DEPENDENCY_DEFINITIONS} PARENT_SCOPE )
+        set ( GameEngine_EXTERNAL_INCLUDE_DIR ${GameEngine_EXTERNAL_INCLUDE_DIR} PARENT_SCOPE )
 
 
 

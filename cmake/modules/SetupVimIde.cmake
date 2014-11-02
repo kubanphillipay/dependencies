@@ -1,6 +1,7 @@
 function( SetupVimIde )
 
-   set(multiValueArgs DIRECTORIES )
+   set(oneValueArgs GAME_ENGINE_DIRECTORY GAME_EXE_DIRECTORY )
+   set(multiValueArgs GAME_EXE_INCLUDES GAME_ENGINE_INCLUDES DIRECTORIES)
    include(CMakeParseArguments)
    cmake_parse_arguments(SetupVimIde "${options}" "${oneValueArgs}" "${multiValueArgs}" ${ARGN} )
 
@@ -36,21 +37,39 @@ function( SetupVimIde )
    file( WRITE ${CMAKE_BINARY_DIR}/mytags
       "\"My directories: ${SetupVimIde_DIRECTORIES}\n"
    ) 
-   #file( WRITE ${CMAKE_BINARY_DIR}/myvimfile 
-   #       "Cmake Binary Dir: ${CMAKE_BINARY_DIR}\n"
-   #       "Cmake Project Name: ${PROJECT_NAME}\n"
-   #       "This is a line in my vim file"
-   #       "This is another line"
-   #       "What  happens when i do this" 
-   #       "This is a ${TEST_VAR}" )
 
    
 
    message( STATUS "VIMIDE, Current Source dir: ${CMAKE_MODULE_PATH} " )
+   
+   message( STATUS "ARGN: ${ARGN}" )
+   message( STATUS "DIRECTORIES: ${SetupVimIde_DIRECTORIES}" )
+   message( STATUS "GAME_EXE_DIRECTORY: ${SetupVimIde_GAME_EXE_DIRECTORY}" )
+   message( STATUS "GAME_ENGINE_DIRECTORY: ${SetupVimIde_GAME_ENGINE_DIRECTORY}" )
+   message( STATUS "GAME_EXE_INCLUDES: ${SetupVimIde_GAME_EXE_INCLUDES}" )
+   message( STATUS "GAME_ENGINE_INCLUDES: ${SetupVimIde_GAME_ENGINE_INCLUDES}" )
 
+   message( STATUS "Printing individual GAME_EXE_INCLUDES" )
+   foreach( file ${SetupVimIde_GAME_EXE_INCLUDES} )  
+      #message( STATUS "  -I ${file} " )
+      string( CONCAT GAME_EXE_INCLUDES  ${GAME_EXE_INCLUDES} "'-I${file}',\n" )
+   endforeach()
 
+   message( STATUS "Printing individual GAME_ENGINE_INCLUDES" )
+   foreach( file ${SetupVimIde_GAME_ENGINE_INCLUDES} ) 
+      #message( STATUS "  -I ${file} " )
+      string( CONCAT GAME_ENGINE_INCLUDES  ${GAME_ENGINE_INCLUDES} "'-isystem${file}',\n" )
+   endforeach()
+   
+   set( GAME_EXE_DIRECTORY ${SetupVimIde_GAME_EXE_DIRECTORY} )
+   set( GAME_ENGINE_DIRECTORY ${SetupVimIde_GAME_ENGINE_DIRECTORY} )
+   message (STATUS "Printing my EXE Includes: " )
+   message( STATUS ${GAME_EXE_INCLUDES} )
+   message (STATUS "Printing my Engine Includes: " )
+   message( STATUS ${GAME_ENGINE_INCLUDES} )
+   
    configure_file (
-     "${CMAKE_MODULE_PATH}/.ycm_extra_conf.py"
+     "${CMAKE_MODULE_PATH}/.ycm_extra_conf_template.py"
      "${PROJECT_BINARY_DIR}/.ycm_extra_conf.py"
    )
 
