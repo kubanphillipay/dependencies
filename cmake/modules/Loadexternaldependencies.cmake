@@ -11,7 +11,8 @@ function( load_external_dependencies )
 
     find_package( GLM REQUIRED )
     find_package( SDL REQUIRED )
-    find_package( BMP REQUIRED COMPONENTS system thread program_options chrono )
+    find_package( BMP REQUIRED COMPONENTS system thread program_options 
+                                          chrono filesystem )
 
     if( LOAD_DEPENDENCY_DEBUG )
         message( STATUS "OpenGL_LIBRARY ${OPENGL_LIBRARY}" )
