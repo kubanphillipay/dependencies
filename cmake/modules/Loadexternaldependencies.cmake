@@ -42,6 +42,7 @@ function( load_external_dependencies )
     set( EXTERNAL_DEPENDENCY_DEFINITIONS
                 ${GLFW_DEFINITIONS}
                 ${GLEW_DEFINITIONS}
+                ${BMP_DEFINITIONS}
     )
 
     set( EXTERNAL_DEPENDENCY_DEFINITIONS ${EXTERNAL_DEPENDENCY_DEFINITIONS} PARENT_SCOPE )
