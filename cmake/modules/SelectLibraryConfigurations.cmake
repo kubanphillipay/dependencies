@@ -49,6 +49,7 @@ macro( select_library_configurations basename )
         set(${basename}_LIBRARY_DEBUG "${basename}_LIBRARY_DEBUG-NOTFOUND" CACHE FILEPATH "Path to a library.")
     endif()
 
+
     if( ${basename}_LIBRARY_DEBUG AND ${basename}_LIBRARY_RELEASE AND
            NOT ${basename}_LIBRARY_DEBUG STREQUAL ${basename}_LIBRARY_RELEASE AND
            ( CMAKE_CONFIGURATION_TYPES OR CMAKE_BUILD_TYPE ) )

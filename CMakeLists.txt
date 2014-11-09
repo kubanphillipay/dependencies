@@ -10,15 +10,16 @@ set (BUILD_GLFW ON CACHE BOOL "Build GLFW?" )
 set (BUILD_GLEW ON CACHE BOOL "Build GLEW?" )
 set (BUILD_GLM ON CACHE BOOL "Build GLM?" )
 set (BUILD_BOOST_MEGA_PACK ON CACHE BOOL "Build Boost Mega Pack?" )
-set (BUILD_LIB_PNG OFF )
+set (BUILD_LIB_PNG ON CACHE BOOL "Build PNG?" ) 
 set (BUILD_ENGINE OFF )
 
 
+include(SetupInstallPath.cmake)
 
 #############
 
-string( REGEX REPLACE "Source" "Install" Install_Path ${CMAKE_SOURCE_DIR} )
-string( REGEX REPLACE "Source" "Install" Install_Path ${Install_Path} )
+#string( REGEX REPLACE "Source" "Install" Install_Path ${CMAKE_SOURCE_DIR} )
+#string( REGEX REPLACE "Source" "Install" Install_Path ${Install_Path} )
 
 
 #message( STATUS "Install Path: ${Install_Path}" )
@@ -128,6 +129,7 @@ if( BUILD_GLFW )
 	find_path( ${lib_name}_PATH_TEMP glfw3.h
 		HINTS ${CMAKE_SOURCE_DIR}
 		PATHS glfw-3.0.4
+      NO_DEFAULT_PATH
 		PATH_SUFFIXES include/GLFW
 	)
 	
@@ -268,7 +270,78 @@ endif()
 
 if( BUILD_LIB_PNG )
 
-	message( FATAL_ERROR "Lib PNG build not supported at this time" )
+   ####################### LOAD ZLIB ####################
+
+
+   set( lib_name "zlib" )
+
+	message( STATUS "Looking for ${lib_name} directory" )
+	
+	find_path( ${lib_name}_PATH_TEMP zlib.h
+		HINTS ${CMAKE_SOURCE_DIR}
+		PATHS zlib-1.2.8
+      NO_DEFAULT_PATH
+      #PATH_SUFFIXES 
+	)	
+	
+	if(${${lib_name}_PATH_TEMP} STREQUAL "${lib_name}_PATH_TEMP-NOTFOUND" )
+		message( FATAL_ERROR "${lib_name} PATH NOT FOUND AND BUILD SET TO ON" )		
+	endif()
+
+   #string( REGEX REPLACE "glm/glm" "glm" ${lib_name}_PATH_TEMP ${${lib_name}_PATH_TEMP} )
+	mark_as_advanced(${lib_name}_PATH_TEMP)
+
+	set(${lib_name}_PATH ${${lib_name}_PATH_TEMP} CACHE PATH "Path to ${lib_name}" )
+
+
+   #set( GLM_TEST_ENABLE OFF CACHE BOOL "GLM Test" FORCE)
+
+
+	add_subdirectory( ${${lib_name}_PATH} )
+   #message( FATAL_ERROR "Lib PNG build not supported at this time" )
+
+
+   ########################## LOAD PNG #####################
+   set( lib_name "PNG" )
+
+	message( STATUS "Looking for ${lib_name} directory" )
+	
+   
+   SET(ZLIB_INCLUDE_DIRS ${zlib_PATH} )
+   SET(ZLIB_LIBRARIES zlibstatic)
+   
+
+
+   SET(CMAKE_INSTALL_LIBDIR ${CMAKE_INSTALL_PREFIX}/lib )
+   
+message(STATUS "ZLIB INCLUDE DIR: " ${ZLIB_INCLUDE_DIRS} )
+message(STATUS "ZLIB LIBRARIES: " ${ZLIB_LIBRARIES} )
+
+   set( PNG_SHARED FALSE )
+   set( PNG_TESTS FALSE )
+
+	find_path( ${lib_name}_PATH_TEMP png.h
+		HINTS ${CMAKE_SOURCE_DIR}
+		PATHS libpng-1.6.12
+      NO_DEFAULT_PATH
+      #PATH_SUFFIXES glm/glm
+	)	
+	
+	if(${${lib_name}_PATH_TEMP} STREQUAL "${lib_name}_PATH_TEMP-NOTFOUND" )
+		message( FATAL_ERROR "${lib_name} PATH NOT FOUND AND BUILD SET TO ON" )		
+	endif()
+
+   #string( REGEX REPLACE "glm/glm" "glm" ${lib_name}_PATH_TEMP ${${lib_name}_PATH_TEMP} )
+	mark_as_advanced(${lib_name}_PATH_TEMP)
+
+	set(${lib_name}_PATH ${${lib_name}_PATH_TEMP} CACHE PATH "Path to ${lib_name}" )
+
+
+   #set( GLM_TEST_ENABLE OFF CACHE BOOL "GLM Test" FORCE)
+
+
+	add_subdirectory( ${${lib_name}_PATH} )
+   #message( FATAL_ERROR "Lib PNG build not supported at this time" )
 endif()
 
 
