@@ -387,18 +387,25 @@ if( BUILD_JSONCPP )
 
 	message( STATUS "Looking for ${lib_name} directory" )
 	
-#	find_path( ${lib_name}_PATH_TEMP json.h
-#		HINTS ${CMAKE_SOURCE_DIR}
-#		PATHS jsoncpp-0.7.0
-#		PATH_SUFFIXES include/json
-#	)	
-	set( ${lib_name}_PATH "jsoncpp-0.7.0")
+	find_path( ${lib_name}_PATH_TEMP json.h
+		HINTS ${CMAKE_SOURCE_DIR}
+		PATHS jsoncpp-0.7.0
+		PATH_SUFFIXES include/json
+		NO_DEFAULT_PATH
+	)	
+	
+	if(${${lib_name}_PATH_TEMP} STREQUAL "${lib_name}_PATH_TEMP-NOTFOUND" )
+		message( FATAL_ERROR "${lib_name} PATH NOT FOUND AND BUILD SET TO ON" )		
+	endif()
+	string( REGEX REPLACE "/include/json" "" ${lib_name}_PATH_TEMP ${${lib_name}_PATH_TEMP} )
+#	set( ${lib_name}_PATH "jsoncpp-0.7.0" CACHE PATH "Path to ${lib_name}")
 
 	#string( REGEX REPLACE "include/json" "json" ${lib_name}_PATH_TEMP ${${lib_name}_PATH_TEMP} )
-	mark_as_advanced(${lib_name}_PATH)
+	mark_as_advanced(${lib_name}_PATH_TEMP)
 
 	set(${lib_name}_PATH ${${lib_name}_PATH_TEMP} CACHE PATH "Path to ${lib_name}" )
 
+#	set( JSON_INCLUDE_DIR  ${JSON_INCLUDE_PATH} )
 	add_subdirectory( ${${lib_name}_PATH} )
 
 
