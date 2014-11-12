@@ -1,6 +1,6 @@
 #message( STATUS "Find png" )
 
-find_path(SDL_IMAGE_INCLUDE_DIR SDL_Image.h
+find_path(SDL_IMAGE_INCLUDE_DIR SDL_image.h
   PATHS ${CMAKE_INSTALL_PREFIX}/include
   NO_DEFAULT_PATH
   PATH_SUFFIXES SDL_Image 
