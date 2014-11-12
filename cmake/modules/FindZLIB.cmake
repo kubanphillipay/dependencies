@@ -21,13 +21,13 @@ find_path(ZLIB_INCLUDE_DIR zlib.h
 find_library(ZLIB_LIBRARY_RELEASE
    PATHS ${CMAKE_INSTALL_PREFIX}/lib
   NO_DEFAULT_PATH
-  NAMES libz.a libz 
+  NAMES libz.a zlibstatic libz 
 )
 
 find_library(ZLIB_LIBRARY_DEBUG
   PATHS ${CMAKE_INSTALL_PREFIX}/lib
   NO_DEFAULT_PATH
-  NAMES libzd.a libzd 
+  NAMES libzd.a zlibstaticd  libzd 
 )
 #include(${CMAKE_CURRENT_LIST_DIR}/FindPackageHandleStandardArgs.cmake)
 #include(${CMAKE_CURRENT_LIST_DIR}/SelectLibraryConfigurations.cmake)

@@ -9,13 +9,13 @@ find_path(PNG_INCLUDE_DIR png.h
 find_library(PNG_LIBRARY_RELEASE
   PATHS ${CMAKE_INSTALL_PREFIX}/lib
   NO_DEFAULT_PATH
-  NAMES libpng16.a png16 png17
+  NAMES libpng16.a libpng16_static png16 png17
 )
 
 find_library(PNG_LIBRARY_DEBUG
   PATHS ${CMAKE_INSTALL_PREFIX}/lib
   NO_DEFAULT_PATH
-  NAMES libpng16d.a png16d png17d
+  NAMES libpng16d.a libpng16_staticd png16d png17d
 )
 
 #MESSAGE( STATUS "FindPNG: PNG_LIBRARY_DEBUG: ${PNG_LIBRARY_DEBUG}" )
