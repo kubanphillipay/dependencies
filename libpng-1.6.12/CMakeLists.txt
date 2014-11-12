@@ -23,6 +23,7 @@ set(PNGLIB_VERSION ${PNGLIB_MAJOR}.${PNGLIB_MINOR}.${PNGLIB_RELEASE})
 # needed packages
 #find_package(ZLIB REQUIRED)
 include_directories(${ZLIB_INCLUDE_DIRS})
+message( STATUS "LOAD PNG:ZLIB_INCLUDE_DIRS: ${ZLIB_INCLUDE_DIRS}" )
 
 if(NOT WIN32)
   find_library(M_LIBRARY

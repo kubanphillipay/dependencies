@@ -308,9 +308,9 @@ if( BUILD_LIB_PNG )
 	message( STATUS "Looking for ${lib_name} directory" )
 	
    
-   SET(ZLIB_INCLUDE_DIRS ${zlib_PATH} )
+   SET(ZLIB_INCLUDE_DIRS ${ZLIB_PATH} ${ZLIB_CONF_DIR} )
    SET(ZLIB_LIBRARIES zlibstatic)
-   
+   message( STATUS "ZLIB_CONF_DIR: ${ZLIB_CONF_DIR} ")
 
 
    SET(CMAKE_INSTALL_LIBDIR ${CMAKE_INSTALL_PREFIX}/lib )
