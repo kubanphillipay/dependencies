@@ -12,6 +12,7 @@ set (BUILD_GLM ON CACHE BOOL "Build GLM?" )
 set (BUILD_BOOST_MEGA_PACK ON CACHE BOOL "Build Boost Mega Pack?" )
 set (BUILD_LIB_PNG ON CACHE BOOL "Build PNG?" ) 
 set (BUILD_SDL_IMAGE ON CACHE BOOL "Build PNG?" ) 
+set (BUILD_JSONCPP ON CACHE BOOL "Build JsonCPP?" )
 set (BUILD_ENGINE OFF )
 
 
@@ -365,17 +366,44 @@ if( BUILD_SDL_IMAGE  )
 	if(${${lib_name}_PATH_TEMP} STREQUAL "${lib_name}_PATH_TEMP-NOTFOUND" )
 		message( FATAL_ERROR "${lib_name} PATH NOT FOUND AND BUILD SET TO ON" )		
 	endif()
-
+	
 	mark_as_advanced(${lib_name}_PATH_TEMP)
 
 	set(${lib_name}_PATH ${${lib_name}_PATH_TEMP} CACHE PATH "Path to ${lib_name}" )
 
-   set( SDL_INCLUDE_DIR ${SDL_PATH}/include )
-   set( ZLIB_INCLUDE_DIR  ${ZLIB_PATH} )
-   set( PNG_INCLUDE_DIR  ${PNG_PATH} )
+	set( SDL_INCLUDE_DIR ${SDL_PATH}/include )
+	set( ZLIB_INCLUDE_DIR  ${ZLIB_PATH} )
+	set( PNG_INCLUDE_DIR  ${PNG_PATH} )
 	add_subdirectory( ${${lib_name}_PATH} )
 
 endif()
+
+########### JSONCPP #########
+
+
+if( BUILD_JSONCPP )
+
+	set( lib_name "JSONCPP" )
+
+	message( STATUS "Looking for ${lib_name} directory" )
+	
+#	find_path( ${lib_name}_PATH_TEMP json.h
+#		HINTS ${CMAKE_SOURCE_DIR}
+#		PATHS jsoncpp-0.7.0
+#		PATH_SUFFIXES include/json
+#	)	
+	set( ${lib_name}_PATH "jsoncpp-0.7.0")
+
+	#string( REGEX REPLACE "include/json" "json" ${lib_name}_PATH_TEMP ${${lib_name}_PATH_TEMP} )
+	mark_as_advanced(${lib_name}_PATH)
+
+	set(${lib_name}_PATH ${${lib_name}_PATH_TEMP} CACHE PATH "Path to ${lib_name}" )
+
+	add_subdirectory( ${${lib_name}_PATH} )
+
+
+endif()
+
 
 ######### Cmake files #######
 
