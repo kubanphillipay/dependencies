@@ -51,7 +51,7 @@ function( load_external_dependencies )
                 ${GLEW_INCLUDE_DIR}
                 ${SDL_INCLUDE_DIR}
                 ${BMP_INCLUDE_DIR}
-				${JSON_INCLUDE_DIR}
+				${JSONCPP_INCLUDE_DIR}
                 PARENT_SCOPE
     )
 
