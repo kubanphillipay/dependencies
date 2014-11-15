@@ -14,7 +14,7 @@ function( load_external_dependencies )
     find_package( ZLIB REQUIRED )
     find_package( PNG REQUIRED )
     find_package( SDL_IMAGE REQUIRED )
-	find_package( JSONCPP REQUIRED )
+    find_package( JSONCPP REQUIRED )
     find_package( BMP REQUIRED COMPONENTS system thread program_options 
                                           chrono filesystem )
 
@@ -27,7 +27,7 @@ function( load_external_dependencies )
         MESSAGE( STATUS "SDL_IMAGE_LIBRARY: ${SDL_IMAGE_LIBRARY}" )
         MESSAGE( STATUS "PNG_LIBRARY: ${PNG_LIBRARY}" )
         MESSAGE( STATUS "ZLIB_LIBRARY: ${ZLIB_LIBRARY}" )
-		MESSAGE( STATUS "JSONCPP_LIBRARY: ${JSONCPP_LIBRARY}" )
+        MESSAGE( STATUS "JSONCPP_LIBRARY: ${JSONCPP_LIBRARY}" )
     endif()
 
     set( EXTERNAL_DEPENDENCY_LIBRARY
@@ -39,19 +39,20 @@ function( load_external_dependencies )
                 ${GLEW_LIBRARY}
                 ${SDL_LIBRARY}
                 ${BMP_LIBRARY}
-				${JSONCPP_LIBRARY}
+                ${JSONCPP_LIBRARY}
                 PARENT_SCOPE
     )
 
     set( EXTERNAL_DEPENDENCY_INCLUDE_DIR
-                ${ZLIB_INCLUDE_DIR}
-                ${PNG_INCLUDE_DIR}
-                ${SDL_IMAGE_INCLUDE_DIR}
-                ${GLFW_INCLUDE_DIR}
-                ${GLEW_INCLUDE_DIR}
-                ${SDL_INCLUDE_DIR}
-                ${BMP_INCLUDE_DIR}
-				${JSONCPP_INCLUDE_DIR}
+                #${ZLIB_INCLUDE_DIR}
+                #${PNG_INCLUDE_DIR}
+                #${SDL_IMAGE_INCLUDE_DIR}
+                #${GLFW_INCLUDE_DIR}
+                #${GLEW_INCLUDE_DIR}
+                ${SDL_INCLUDE_DIR} # This is neede for SDL_IMage
+                #${BMP_INCLUDE_DIR}
+                #${JSONCPP_INCLUDE_DIR}
+                ${CMAKE_INSTALL_PREFIX}/include
                 PARENT_SCOPE
     )
 
