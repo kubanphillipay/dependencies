@@ -34,7 +34,7 @@ set(GLEW_INCLUDE_DIRS ${GLEW_INCLUDE_DIR})
 include(${CMAKE_CURRENT_LIST_DIR}/SelectLibraryConfigurations.cmake)
 select_library_configurations(GLEW)
 
-message( STATUS "GLEW_INCLUDE_DIR: ${GLEW_INCLUDE_DIR}" )
+#message( STATUS "GLEW_INCLUDE_DIR: ${GLEW_INCLUDE_DIR}" )
 #set(GLEW_LIBRARIES ${GLEW_LIBRARY})
 
 if( GLEW_SHARED )
